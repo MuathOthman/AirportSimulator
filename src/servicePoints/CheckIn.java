@@ -16,9 +16,15 @@ public class CheckIn extends Palvelupiste {
     private Tapahtumalista tapahtumalista; // Initialize as needed
     private TapahtumanTyyppi skeduloitavanTapahtumanTyyppi; // Initialize as needed
     private LinkedList<Asiakas> jono = new LinkedList<>(); // Initialize as needed
+    String name;
 
     public CheckIn(ContinuousGenerator generator, Tapahtumalista tapahtumalista, TapahtumanTyyppi tyyppi) {
         super(generator, tapahtumalista, tyyppi);
+        this.name = name;
+    }
+
+    public void setName(String name) {
+    	this.name = name;
     }
 
     @Override
@@ -28,4 +34,9 @@ public class CheckIn extends Palvelupiste {
         double palveluaika = generator.sample();
         tapahtumalista.lisaa(new Tapahtuma(skeduloitavanTapahtumanTyyppi, Kello.getInstance().getAika()+palveluaika));
     }
+
+    public String getName() {
+        return name;
+    }
+
 }

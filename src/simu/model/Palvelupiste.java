@@ -59,4 +59,7 @@ public class Palvelupiste {
 		return jono.size() != 0;
 	}
 
+	// TEST
+	public void setName(String name) {
+	}
 }

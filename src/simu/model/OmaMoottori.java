@@ -10,15 +10,18 @@ public class OmaMoottori extends Moottori{
 	private Saapumisprosessi saapumisprosessi;
 
 	private Palvelupiste[] palvelupisteet;
+	private CheckIn[] checkIns;
 
 	public OmaMoottori(){
 
-		palvelupisteet = new Palvelupiste[4];
+		palvelupisteet = new Palvelupiste[3];
+		checkIns = new CheckIn[1];
 
 		palvelupisteet[0]=new Palvelupiste(new Normal(10,6), tapahtumalista, TapahtumanTyyppi.DEP1);
 		palvelupisteet[1]=new Palvelupiste(new Normal(10,10), tapahtumalista, TapahtumanTyyppi.DEP2);
 		palvelupisteet[2]=new Palvelupiste(new Normal(5,3), tapahtumalista, TapahtumanTyyppi.DEP3);
-		palvelupisteet[3]=new CheckIn(new Normal(5,3), tapahtumalista, TapahtumanTyyppi.DEP2);
+		checkIns[0]=new CheckIn(new Normal(5,3), tapahtumalista, TapahtumanTyyppi.CHECK1);
+		checkIns[0].setName("Muath");
 
 		saapumisprosessi = new Saapumisprosessi(new Negexp(15,5), tapahtumalista, TapahtumanTyyppi.ARR1);
 
@@ -46,12 +49,15 @@ public class OmaMoottori extends Moottori{
 				   	   palvelupisteet[2].lisaaJonoon(a);
 				break;
 			case CHECK1: a = (Asiakas)palvelupisteet[2].otaJonosta();
-				   	   palvelupisteet[3].lisaaJonoon(a);
+				   	   checkIns[0].lisaaJonoon(a);
+						System.out.println(checkIns[0].getName());
+						System.out.println(a.getId());
 				break;
-			case DEP3:
-				       a = (Asiakas)palvelupisteet[2].otaJonosta();
-					   a.setPoistumisaika(Kello.getInstance().getAika());
-			           a.raportti();
+			case DEP3: a = (Asiakas)checkIns[0].otaJonosta();
+					   System.out.println(checkIns[0].getName());
+					   //System.out.println(a.getId());
+					   //a.setPoistumisaika(Kello.getInstance().getAika());
+					   //a.raportti();
 		}
 	}
 
