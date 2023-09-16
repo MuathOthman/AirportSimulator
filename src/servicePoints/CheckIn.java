@@ -24,7 +24,6 @@ public class CheckIn extends Palvelupiste {
     @Override
     public void aloitaPalvelu() {
         Trace.out(Trace.Level.INFO, "Asiakas check-in " + jono.peek().getId());
-
         varattu = true;
         double palveluaika = generator.sample();
         tapahtumalista.lisaa(new Tapahtuma(skeduloitavanTapahtumanTyyppi, Kello.getInstance().getAika()+palveluaika));

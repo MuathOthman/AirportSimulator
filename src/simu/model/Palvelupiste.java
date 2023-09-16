@@ -9,7 +9,7 @@ import eduni.distributions.ContinuousGenerator;
 public class Palvelupiste {
 
 	private final LinkedList<Asiakas> jono = new LinkedList<>(); // Tietorakennetoteutus
-	private final ContinuousGenerator generator;
+	protected final ContinuousGenerator generator;
 	private final Tapahtumalista tapahtumalista;
 	private final TapahtumanTyyppi skeduloitavanTapahtumanTyyppi;
 	
