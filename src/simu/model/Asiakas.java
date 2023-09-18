@@ -10,6 +10,7 @@ public class Asiakas {
 	private int id;
 	private static int i = 1;
 	private static long sum = 0;
+	public boolean passport = true;
 	
 	public Asiakas(){
 	    id = i++;
@@ -20,6 +21,10 @@ public class Asiakas {
 
 	public double getPoistumisaika() {
 		return poistumisaika;
+	}
+
+	public boolean isPassport() {
+		return passport;
 	}
 
 	public void setPoistumisaika(double poistumisaika) {
