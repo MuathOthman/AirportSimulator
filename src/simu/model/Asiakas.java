@@ -27,6 +27,10 @@ public class Asiakas {
 		return passport;
 	}
 
+	public static int getCount() {
+		return i;
+	}
+
 	public void setPoistumisaika(double poistumisaika) {
 		this.poistumisaika = poistumisaika;
 	}
