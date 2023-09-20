@@ -1,8 +1,11 @@
 package simu.model;
 
+import simu.Terminals.Domestic;
 import simu.framework.*;
 import eduni.distributions.Negexp;
 import eduni.distributions.Normal;
+import simu.servicePoints.CheckIN;
+import simu.servicePoints.SecurityCheck;
 
 public class OmaMoottori extends Moottori{
 	
@@ -14,9 +17,9 @@ public class OmaMoottori extends Moottori{
 
 		palvelupisteet = new Palvelupiste[3];
 
-		palvelupisteet[0]=new Palvelupiste(new Normal(10,6), tapahtumalista, TapahtumanTyyppi.DEP1);
-		palvelupisteet[1]=new Palvelupiste(new Normal(10,10), tapahtumalista, TapahtumanTyyppi.DEP2);
-		palvelupisteet[2]=new Palvelupiste(new Normal(5,3), tapahtumalista, TapahtumanTyyppi.DEP3);
+		palvelupisteet[0]=new CheckIN(new Normal(10,6), tapahtumalista, TapahtumanTyyppi.DEP1); //check-in
+		palvelupisteet[1]=new SecurityCheck(new Normal(10,10), tapahtumalista, TapahtumanTyyppi.DEP2); //turvatarkastus
+		palvelupisteet[2]=new Domestic(new Normal(5,3), tapahtumalista, TapahtumanTyyppi.DEP3); //sisämaan terminaali
 
 		saapumisprosessi = new Saapumisprosessi(new Negexp(15,5), tapahtumalista, TapahtumanTyyppi.ARR1);
 
@@ -34,17 +37,17 @@ public class OmaMoottori extends Moottori{
 		Asiakas a;
 		switch ((TapahtumanTyyppi)t.getTyyppi()){
 
-			case ARR1: palvelupisteet[0].lisaaJonoon(new Asiakas());
+			case ARR1: palvelupisteet[0].lisaaJonoon(new Asiakas()); //asiakas menee check-iniin
 				       saapumisprosessi.generoiSeuraava();
 				break;
-			case DEP1: a = (Asiakas)palvelupisteet[0].otaJonosta();
+			case DEP1: a = (Asiakas)palvelupisteet[0].otaJonosta(); //asiakas siirtyy check-inistä turvatarkastukseen
 				   	   palvelupisteet[1].lisaaJonoon(a);
 				break;
-			case DEP2: a = (Asiakas)palvelupisteet[1].otaJonosta();
+			case DEP2: a = (Asiakas)palvelupisteet[1].otaJonosta(); //asiakas siirtyy turvatarkastuksesta terminaaliin
 				   	   palvelupisteet[2].lisaaJonoon(a);
 				break;
 			case DEP3:
-				       a = (Asiakas)palvelupisteet[2].otaJonosta();
+				       a = (Asiakas)palvelupisteet[2].otaJonosta(); //asiakas poistetaan järjestelmästä
 					   a.setPoistumisaika(Kello.getInstance().getAika());
 			           a.raportti();
 		}
@@ -62,7 +65,8 @@ public class OmaMoottori extends Moottori{
 	@Override
 	protected void tulokset() {
 		System.out.println("Simulointi päättyi kello " + Kello.getInstance().getAika());
-		System.out.println("Tulokset ... puuttuvat vielä");
+		System.out.println("Järjestelmä ehti palvella " + Asiakas.getCount() + " asiakasta.");
+
 	}
 
 	
