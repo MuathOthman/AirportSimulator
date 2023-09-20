@@ -5,6 +5,8 @@ import simu.framework.*;
 import eduni.distributions.Negexp;
 import eduni.distributions.Normal;
 import simu.servicePoints.CheckIN;
+import simu.servicePoints.DutyFree;
+import simu.servicePoints.PassportControl;
 import simu.servicePoints.SecurityCheck;
 
 public class OmaMoottori extends Moottori{
@@ -15,11 +17,12 @@ public class OmaMoottori extends Moottori{
 
 	public OmaMoottori(){
 
-		palvelupisteet = new Palvelupiste[3];
+		palvelupisteet = new Palvelupiste[4];
 
 		palvelupisteet[0]=new CheckIN(new Normal(10,6), tapahtumalista, TapahtumanTyyppi.DEP1); //check-in
 		palvelupisteet[1]=new SecurityCheck(new Normal(10,10), tapahtumalista, TapahtumanTyyppi.DEP2); //turvatarkastus
-		palvelupisteet[2]=new Domestic(new Normal(5,3), tapahtumalista, TapahtumanTyyppi.DEP3); //sisämaan terminaali
+		palvelupisteet[2]=new PassportControl(new Normal(5,3), tapahtumalista, TapahtumanTyyppi.DEP3); //sisämaan terminaali
+		palvelupisteet[3]=new DutyFree(new Normal(5,3), tapahtumalista, TapahtumanTyyppi.DEP4);
 
 		saapumisprosessi = new Saapumisprosessi(new Negexp(15,5), tapahtumalista, TapahtumanTyyppi.ARR1);
 
@@ -46,12 +49,16 @@ public class OmaMoottori extends Moottori{
 			case DEP2: a = (Asiakas)palvelupisteet[1].otaJonosta(); //asiakas siirtyy turvatarkastuksesta terminaaliin
 				   	   palvelupisteet[2].lisaaJonoon(a);
 				break;
-			case DEP3:
-				       a = (Asiakas)palvelupisteet[2].otaJonosta(); //asiakas poistetaan järjestelmästä
-					   a.setPoistumisaika(Kello.getInstance().getAika());
-			           a.raportti();
+			case DEP3: a = (Asiakas)palvelupisteet[2].otaJonosta(); //asiakas siirtyy turvatarkastuksesta terminaaliin
+				       palvelupisteet[3].lisaaJonoon(a);
+					   break;
+			case DEP4:
+				       a = (Asiakas)palvelupisteet[3].otaJonosta(); //asiakas poistetaan järjestelmästä
+						   a.setPoistumisaika(Kello.getInstance().getAika());
+						   a.raportti();
+					   }
 		}
-	}
+
 
 	@Override
 	protected void yritaCTapahtumat(){
