@@ -11,6 +11,8 @@ public class Asiakas {
 	private static int i = 1;
 	private static long sum = 0;
 	public boolean passport = true;
+
+	public boolean international = true;
 	
 	public Asiakas(){
 	    id = i++;
@@ -26,6 +28,8 @@ public class Asiakas {
 	public boolean isPassport() {
 		return passport;
 	}
+
+	public boolean isInternational(){return international;}
 
 	public static int getCount() {
 		return i;

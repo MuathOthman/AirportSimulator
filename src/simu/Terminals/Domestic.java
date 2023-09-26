@@ -12,6 +12,7 @@ public class Domestic extends CheckIN {
 
     @Override
     public void aloitaPalvelu() {
-
+        System.out.println("Check-IN: ");
+        super.aloitaPalvelu();
     }
 }
