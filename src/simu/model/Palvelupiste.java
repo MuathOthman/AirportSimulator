@@ -59,4 +59,9 @@ public class Palvelupiste {
 		return jono.size() != 0;
 	}
 
+	public int GetJonoSize() {
+		return jono.size();
+	}
+
 }
+
