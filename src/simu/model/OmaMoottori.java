@@ -20,11 +20,11 @@ public class OmaMoottori extends Moottori{
 
 		palvelupisteet = new Palvelupiste[6];
 
-		palvelupisteet[0]=new CheckIN(new Normal(10,6), tapahtumalista, TapahtumanTyyppi.DEP1);
-		palvelupisteet[1]=new CheckIN(new Normal(10,6), tapahtumalista, TapahtumanTyyppi.DEP1);
-		palvelupisteet[2]=new CheckIN(new Normal(10,6), tapahtumalista, TapahtumanTyyppi.DEP1);
-		palvelupisteet[3]=new CheckIN(new Normal(10,6), tapahtumalista, TapahtumanTyyppi.DEP1);
-		palvelupisteet[4]=new CheckIN(new Normal(10,6), tapahtumalista, TapahtumanTyyppi.DEP1);
+		palvelupisteet[0]=new CheckIN(new Normal(10,6), tapahtumalista, TapahtumanTyyppi.CI1);
+		palvelupisteet[1]=new CheckIN(new Normal(10,6), tapahtumalista, TapahtumanTyyppi.CI2);
+		palvelupisteet[2]=new CheckIN(new Normal(10,6), tapahtumalista, TapahtumanTyyppi.CI3);
+		palvelupisteet[3]=new CheckIN(new Normal(10,6), tapahtumalista, TapahtumanTyyppi.CI4);
+		palvelupisteet[4]=new CheckIN(new Normal(10,6), tapahtumalista, TapahtumanTyyppi.CI5);
 
 		palvelupisteet[5]=new SecurityCheck(new Normal(10,6), tapahtumalista, TapahtumanTyyppi.DEP2);
 
@@ -66,8 +66,24 @@ public class OmaMoottori extends Moottori{
 				}
 				saapumisprosessi.generoiSeuraava();
 				break;
-			case DEP1:
+			case CI1:
 				a = (Asiakas) palvelupisteet[0].otaJonosta(); //asiakas siirtyy check-inistä turvatarkastukseen
+				palvelupisteet[5].lisaaJonoon(a);
+				break;
+			case CI2:
+				a = (Asiakas) palvelupisteet[1].otaJonosta(); //asiakas siirtyy check-inistä turvatarkastukseen
+				palvelupisteet[5].lisaaJonoon(a);
+				break;
+			case CI3:
+				a = (Asiakas) palvelupisteet[2].otaJonosta(); //asiakas siirtyy check-inistä turvatarkastukseen
+				palvelupisteet[5].lisaaJonoon(a);
+				break;
+			case CI4:
+				a = (Asiakas) palvelupisteet[3].otaJonosta(); //asiakas siirtyy check-inistä turvatarkastukseen
+				palvelupisteet[5].lisaaJonoon(a);
+				break;
+			case CI5:
+				a = (Asiakas) palvelupisteet[4].otaJonosta(); //asiakas siirtyy check-inistä turvatarkastukseen
 				palvelupisteet[5].lisaaJonoon(a);
 				break;
 			case DEP2:

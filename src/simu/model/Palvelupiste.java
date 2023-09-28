@@ -12,6 +12,8 @@ public class Palvelupiste {
 	private final ContinuousGenerator generator;
 	private final Tapahtumalista tapahtumalista;
 	private final TapahtumanTyyppi skeduloitavanTapahtumanTyyppi;
+	static int count = 0;
+	private int id;
 	
 	//JonoStartegia strategia; //optio: asiakkaiden järjestys
 	
@@ -22,6 +24,8 @@ public class Palvelupiste {
 		this.tapahtumalista = tapahtumalista;
 		this.generator = generator;
 		this.skeduloitavanTapahtumanTyyppi = tyyppi;
+		count++;
+		this.id = count;
 				
 	}
 
@@ -39,7 +43,7 @@ public class Palvelupiste {
 
 
 	public void aloitaPalvelu(){  //Aloitetaan uusi palvelu, asiakas on jonossa palvelun aikana
-		
+		System.out.println("PP: " + this.id); //testisout
 		Trace.out(Trace.Level.INFO, "Aloitetaan uusi palvelu asiakkaalle " + jono.peek().getId());
 		
 		varattu = true;
