@@ -18,7 +18,7 @@ public class OmaMoottori extends Moottori{
 
 	public OmaMoottori(){
 
-		palvelupisteet = new Palvelupiste[6];
+		palvelupisteet = new Palvelupiste[11];
 
 		palvelupisteet[0]=new CheckIN(new Normal(10,6), tapahtumalista, TapahtumanTyyppi.CI1);
 		palvelupisteet[1]=new CheckIN(new Normal(10,6), tapahtumalista, TapahtumanTyyppi.CI2);
@@ -26,7 +26,13 @@ public class OmaMoottori extends Moottori{
 		palvelupisteet[3]=new CheckIN(new Normal(10,6), tapahtumalista, TapahtumanTyyppi.CI4);
 		palvelupisteet[4]=new CheckIN(new Normal(10,6), tapahtumalista, TapahtumanTyyppi.CI5);
 
-		palvelupisteet[5]=new SecurityCheck(new Normal(10,6), tapahtumalista, TapahtumanTyyppi.DEP2);
+		palvelupisteet[5]=new SecurityCheck(new Normal(10,6), tapahtumalista, TapahtumanTyyppi.SEC1);
+		palvelupisteet[6]=new SecurityCheck(new Normal(10,6), tapahtumalista, TapahtumanTyyppi.SEC2);
+		palvelupisteet[7]=new SecurityCheck(new Normal(10,6), tapahtumalista, TapahtumanTyyppi.SEC3);
+		palvelupisteet[8]=new SecurityCheck(new Normal(10,6), tapahtumalista, TapahtumanTyyppi.SEC4);
+		palvelupisteet[9]=new SecurityCheck(new Normal(10,6), tapahtumalista, TapahtumanTyyppi.SEC5);
+
+		palvelupisteet[10]=new SecurityCheck(new Normal(10,6), tapahtumalista, TapahtumanTyyppi.DEP2);
 
 
 		saapumisprosessi = new Saapumisprosessi(new Negexp(15,5), tapahtumalista, TapahtumanTyyppi.ARR1);
@@ -68,27 +74,113 @@ public class OmaMoottori extends Moottori{
 				break;
 			case CI1:
 				a = (Asiakas) palvelupisteet[0].otaJonosta(); //asiakas siirtyy check-inistä turvatarkastukseen
-				palvelupisteet[5].lisaaJonoon(a);
+				jonocheck = true;
+				j=0;
+				while (jonocheck) {
+
+					for (int i = 5; i <10; i++) {
+						if (palvelupisteet[i].GetJonoSize() == j) {
+							palvelupisteet[i].lisaaJonoon(a);
+							System.out.println("Asiakas lisätty sec nro" + i);
+							jonocheck = false;
+							break;
+						}
+					}
+					j++;
+				}
 				break;
 			case CI2:
 				a = (Asiakas) palvelupisteet[1].otaJonosta(); //asiakas siirtyy check-inistä turvatarkastukseen
-				palvelupisteet[5].lisaaJonoon(a);
+				jonocheck = true;
+				j=0;
+				while (jonocheck) {
+
+					for (int i = 5; i <10; i++) {
+						if (palvelupisteet[i].GetJonoSize() == j) {
+							palvelupisteet[i].lisaaJonoon(a);
+							System.out.println("Asiakas lisätty sec nro " + i);
+							jonocheck = false;
+							break;
+						}
+					}
+					j++;
+				}
 				break;
 			case CI3:
 				a = (Asiakas) palvelupisteet[2].otaJonosta(); //asiakas siirtyy check-inistä turvatarkastukseen
-				palvelupisteet[5].lisaaJonoon(a);
+				jonocheck = true;
+				j=0;
+				while (jonocheck) {
+
+					for (int i = 5; i <10; i++) {
+						if (palvelupisteet[i].GetJonoSize() == j) {
+							palvelupisteet[i].lisaaJonoon(a);
+							System.out.println("Asiakas lisätty sec nro " + i);
+							jonocheck = false;
+							break;
+						}
+					}
+					j++;
+				}
 				break;
 			case CI4:
 				a = (Asiakas) palvelupisteet[3].otaJonosta(); //asiakas siirtyy check-inistä turvatarkastukseen
-				palvelupisteet[5].lisaaJonoon(a);
+				jonocheck = true;
+				j=0;
+				while (jonocheck) {
+
+					for (int i = 5; i <10; i++) {
+						if (palvelupisteet[i].GetJonoSize() == j) {
+							palvelupisteet[i].lisaaJonoon(a);
+							System.out.println("Asiakas lisätty sec nro " + i);
+							jonocheck = false;
+							break;
+						}
+					}
+					j++;
+				}
 				break;
 			case CI5:
 				a = (Asiakas) palvelupisteet[4].otaJonosta(); //asiakas siirtyy check-inistä turvatarkastukseen
-				palvelupisteet[5].lisaaJonoon(a);
+				jonocheck = true;
+				j=0;
+				while (jonocheck) {
+
+					for (int i = 5; i <10; i++) {
+						if (palvelupisteet[i].GetJonoSize() == j) {
+							palvelupisteet[i].lisaaJonoon(a);
+							System.out.println("Asiakas lisätty check iniin nro" + i);
+							jonocheck = false;
+							break;
+						}
+					}
+					j++;
+				}
 				break;
+			case SEC1:
+				a = (Asiakas) palvelupisteet[5].otaJonosta();
+				palvelupisteet[10].lisaaJonoon(a);
+				break;
+			case SEC2:
+				a = (Asiakas) palvelupisteet[6].otaJonosta();
+				palvelupisteet[10].lisaaJonoon(a);
+				break;
+			case SEC3:
+				a = (Asiakas) palvelupisteet[7].otaJonosta();
+				palvelupisteet[10].lisaaJonoon(a);
+				break;
+			case SEC4:
+				a = (Asiakas) palvelupisteet[8].otaJonosta();
+				palvelupisteet[10].lisaaJonoon(a);
+				break;
+			case SEC5:
+				a = (Asiakas) palvelupisteet[9].otaJonosta();
+				palvelupisteet[10].lisaaJonoon(a);
+				break;
+
 			case DEP2:
 				System.out.println("poisto");
-				a = (Asiakas) palvelupisteet[5].otaJonosta(); //asiakas poistetaan järjestelmästä
+				a = (Asiakas) palvelupisteet[10].otaJonosta(); //asiakas poistetaan järjestelmästä
 				a.setPoistumisaika(Kello.getInstance().getAika());
 				a.raportti();
 
