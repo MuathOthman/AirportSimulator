@@ -18,7 +18,7 @@ public class OmaMoottori extends Moottori{
 
 	public OmaMoottori(){
 
-		palvelupisteet = new Palvelupiste[16];
+		palvelupisteet = new Palvelupiste[17];
 
 		palvelupisteet[0]=new CheckIN(new Normal(10,6), tapahtumalista, TapahtumanTyyppi.CI1);
 		palvelupisteet[1]=new CheckIN(new Normal(10,6), tapahtumalista, TapahtumanTyyppi.CI2);
@@ -38,7 +38,9 @@ public class OmaMoottori extends Moottori{
 		palvelupisteet[13]=new PassportControl(new Normal(10,6), tapahtumalista, TapahtumanTyyppi.PAS4);
 		palvelupisteet[14]=new PassportControl(new Normal(10,6), tapahtumalista, TapahtumanTyyppi.PAS5);
 
-		palvelupisteet[15]=new SecurityCheck(new Normal(10,6), tapahtumalista, TapahtumanTyyppi.DEP2);
+		palvelupisteet[15]=new DutyFree(new Normal(10,6), tapahtumalista, TapahtumanTyyppi.DUT1);
+
+		palvelupisteet[16]=new International(new Normal(10,6), tapahtumalista, TapahtumanTyyppi.DEP2);
 
 
 		saapumisprosessi = new Saapumisprosessi(new Negexp(15,5), tapahtumalista, TapahtumanTyyppi.ARR1);
@@ -269,9 +271,13 @@ public class OmaMoottori extends Moottori{
 				a = (Asiakas) palvelupisteet[14].otaJonosta();
 				palvelupisteet[15].lisaaJonoon(a);
 				break;
+			case DUT1:
+				a = (Asiakas) palvelupisteet[15].otaJonosta();
+				System.out.println(a.getId() + " TAXFREE BABY!");
+				palvelupisteet[16].lisaaJonoon(a);
 			case DEP2:
 				System.out.println("poisto");
-				a = (Asiakas) palvelupisteet[15].otaJonosta(); //asiakas poistetaan järjestelmästä
+				a = (Asiakas) palvelupisteet[16].otaJonosta(); //asiakas poistetaan järjestelmästä
 				a.setPoistumisaika(Kello.getInstance().getAika());
 				a.raportti();
 
